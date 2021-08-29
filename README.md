@@ -13,8 +13,7 @@ This repository proivdes a 2D medical image interactive segmentation method for 
                   year={2021},
                   publisher={Elsevier}}
 ![2D example](./demo_dataset/egd_vis.png)
-
-A comparison of different distance transform, following [GeodisTK](https://github.com/taigw/GeodisTK).
+A visualization comparison of different distance transform methods, following [GeodisTK](https://github.com/taigw/GeodisTK).
 ## Requirements
 Before you can use this package for image segmentation. You should:
 * PyTorch version >=1.0.1
