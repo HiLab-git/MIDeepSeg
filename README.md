@@ -28,7 +28,8 @@ pip install SimpleCRF
 
 2. launch the GUI
 ```bash
-python mideepseg/main.py
+cd mideepseg
+python main.py
 ``` 
 3. load an image for segmentation. Once the image is loaded,  Firstly, give some edge points by left mouse to get an initial interactions, click the Segmentation button to obtain an initial segmentation. Then, press left mouse button to give clicks in under-segmented regions, and press right mouse button to give clicks  in over-segmented region. Then click the Refinement button, and the segmentation will be updated according to the interactions.
 
