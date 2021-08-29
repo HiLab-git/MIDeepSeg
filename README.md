@@ -5,7 +5,7 @@ This repository proivdes a 2D medical image interactive segmentation method for 
 
 		@article{luo2021mideepseg,
                   title={MIDeepSeg: Minimally interactive segmentation of unseen objects from medical images using deep learning},
-                  author={Luo, Xiangde and Wang, Guotai and Song, Tao and Zhang, Jingyang and Aertsen, Michael and Deprest, Jan and Ourselin, Sebastien and                                  Vercauteren, Tom and Zhang, Shaoting},
+                  author={Luo, Xiangde and Wang, Guotai and Song, Tao and Zhang, Jingyang and Aertsen, Michael and Deprest, Jan and Ourselin, Sebastien and Vercauteren, Tom and Zhang, Shaoting},
                   journal={Medical Image Analysis},
                   volume={72},
                   pages={102102},
@@ -35,11 +35,11 @@ python mideepseg/main.py
 4. Note that, the pretrained model is only trained with placenta MR-T2 data. 
 
 ## Acknowledgment and Statement
-* We thank the authors of [Deep_Extreme_Cut][dextr_link] , [DeepIGeoS][deepigeos_link] and [BIFSeg][bifseg_link] !
+* We thank the authors of [Deep_Extreme_Cut][dextr_link], [DeepIGeoS][deepigeos_link] and [BIFSeg][bifseg_link] for their elegant and efficient code base !
 
 [geos_dis_link]: https://github.com/taigw/GeodisTK
 [simplecrf_link]: https://github.com/HiLab-git/SimpleCRF
 [dextr_link]: https://openaccess.thecvf.com/content_cvpr_2018/papers/Maninis_Deep_Extreme_Cut_CVPR_2018_paper.pdf
 [deepigeos_link]: https://ieeexplore.ieee.org/document/8370732
 [bifseg_link]: https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8270673
-* This project was designed for academic research, not for clinical or commercial use, as it's a protected patent.  If you want to use it for commercial, please contact Prof. Guotai Wang (X.wang@uestc.edu.cn, X=guotai).
+* This project was designed for academic research, not for clinical or commercial use, as it's a protected patent.  If you want to use it for commercial, please contact [Prof. Guotai Wang](https://scholar.google.com/citations?user=Z2sFN4EAAAAJ&hl=en).
