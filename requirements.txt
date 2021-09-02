@@ -1,0 +1,12 @@
+scikit_image==0.17.2
+matplotlib==3.3.4
+torchvision==0.4.0a0+6b959ee
+numpy==1.19.2
+SimpleCRF==0.1.0
+scipy==1.5.2
+torch==1.2.0
+GeodisTK==0.1.7
+maxflow==0.0.1
+Pillow==8.3.1
+PyQt5==5.15.4
+skimage==0.0

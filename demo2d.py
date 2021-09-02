@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+# Author: Xiangde Luo
+# Date:   2 Sep., 2021
+# Implementation of MIDeepSeg for interactive medical image segmentation and annotation.
+# This file was borrowed from [GeodisTK](https://github.com/taigw/GeodisTK)
+# Reference:
+#     [1] X. Luo and G. Wang et al. MIDeepSeg: Minimally interactive segmentation of unseen objects
+#     from medical images using deep learning. Medical Image Analysis, 2021. DOI:https://doi.org/10.1016/j.media.2021.102102.
+#     [2] Wang, Guotai, et al. "DeepIGeoS: A deep interactive geodesic framework for medical image segmentation." TPAMI, 2018.
+
 import GeodisTK
 import numpy as np
 import time
@@ -17,12 +27,13 @@ def geodesic_distance_2d(I, S, lamb, iter):
     '''
     return GeodisTK.geodesic2d_raster_scan(I, S, lamb, iter)
 
+
 def demo_geodesic_distance2d(img, seed_pos):
     I = np.asanyarray(img, np.float32)
     S = np.zeros((I.shape[0], I.shape[1]), np.uint8)
     S[seed_pos[0]][seed_pos[1]] = 1
     t0 = time.time()
-    D1 = GeodisTK.geodesic2d_fast_marching(I,S)
+    D1 = GeodisTK.geodesic2d_fast_marching(I, S)
     t1 = time.time()
     D2 = geodesic_distance_2d(I, S, 1.0, 2)
     dt1 = t1 - t0
@@ -32,35 +43,50 @@ def demo_geodesic_distance2d(img, seed_pos):
     print("runtime(s) of fast marching {0:}".format(dt1))
     print("runtime(s) of raster  scan  {0:}".format(dt2))
 
-    plt.figure(figsize=(18,6))
-    plt.subplot(1,6,1); plt.imshow(img, "gray")
-    plt.autoscale(False);  plt.plot([seed_pos[1]], [seed_pos[0]], 'ro')
-    plt.axis('off'); plt.title('(a) input image \n with a seed point')
-    
-    plt.subplot(1,6,2); plt.imshow(D1)
-    plt.axis('off'); plt.title('(b) Geodesic distance \n based on fast marching')
-    
-    plt.subplot(1,6,3); plt.imshow(D2)
-    plt.axis('off'); plt.title('(c) Geodesic distance \n based on ranster scan')
+    plt.figure(figsize=(18, 6))
+    plt.subplot(1, 6, 1)
+    plt.imshow(img, "gray")
+    plt.autoscale(False)
+    plt.plot([seed_pos[1]], [seed_pos[0]], 'ro')
+    plt.axis('off')
+    plt.title('(a) input image \n with a seed point')
 
-    plt.subplot(1,6,4); plt.imshow(D3)
-    plt.axis('off'); plt.title('(d) Euclidean distance')
+    plt.subplot(1, 6, 2)
+    plt.imshow(D1)
+    plt.axis('off')
+    plt.title('(b) Geodesic distance \n based on fast marching')
 
-    plt.subplot(1,6,5); plt.imshow(D4)
-    plt.axis('off'); plt.title('(e) Mexture of Geodesic \n and Euclidean distance')
+    plt.subplot(1, 6, 3)
+    plt.imshow(D2)
+    plt.axis('off')
+    plt.title('(c) Geodesic distance \n based on ranster scan')
 
-    plt.subplot(1,6,6); plt.imshow(np.exp(-D1))
-    plt.axis('off'); plt.title('(f) Exponential Geodesic distance')
-    plt.savefig("demo_dataset/egd_vis.png",bbox_inches='tight',dpi=500,pad_inches=0.0)
+    plt.subplot(1, 6, 4)
+    plt.imshow(D3)
+    plt.axis('off')
+    plt.title('(d) Euclidean distance')
+
+    plt.subplot(1, 6, 5)
+    plt.imshow(D4)
+    plt.axis('off')
+    plt.title('(e) Mexture of Geodesic \n and Euclidean distance')
+
+    plt.subplot(1, 6, 6)
+    plt.imshow(np.exp(-D1))
+    plt.axis('off')
+    plt.title('(f) Exponential Geodesic distance')
+    plt.savefig("demo_dataset/egd_vis.png",
+                bbox_inches='tight', dpi=500, pad_inches=0.0)
     plt.show()
+
 
 def demo_geodesic_distance2d_gray_scale_image():
     img = Image.open('demo_dataset/pancreas.png').convert('L')
     img = np.array(img)[100:400, 100:400]
-    img = (img - img.mean())/ img.std()
+    img = (img - img.mean()) / img.std()
     seed_position = [121, 182]
     demo_geodesic_distance2d(img, seed_position)
 
+
 if __name__ == '__main__':
     demo_geodesic_distance2d_gray_scale_image()
-
