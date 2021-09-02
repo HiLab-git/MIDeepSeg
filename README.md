@@ -24,8 +24,7 @@ Before you can use this package for image segmentation. You should:
 1, compile the requirement library:
 
 ```bash
-pip install GeodisTK
-pip install SimpleCRF
+pip install -r requirements.txt
 ```
 
 2. launch the GUI
