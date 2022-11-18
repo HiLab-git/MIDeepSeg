@@ -11,7 +11,6 @@ import random
 from os.path import join as opj
 
 import GeodisTK
-import matplotlib.pyplot as plt
 import numpy as np
 import scipy
 import torchvision.transforms as ts

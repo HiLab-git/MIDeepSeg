@@ -11,7 +11,6 @@ from collections import OrderedDict
 from os.path import join as opj
 
 import cv2
-import matplotlib.pyplot as plt
 import maxflow
 import numpy as np
 import torch
@@ -182,7 +181,7 @@ class Controler(object):
             fix_predict = maxflow.maxflow2d(zoomed_img.astype(
                 np.float32), Prob, crf_param)
 
-            fixed_predict = zoom(fix_predict, (x/96, y/96), output=None,
+            fixed_predict = zoom(fix_predict, (x / 96, y / 96), output=None,
                                  order=0, mode='constant', cval=0.0, prefilter=True)
             # fixed_predict = zoom(fg_prob, (x/96, y/96), output=None,
             #                      order=0, mode='constant', cval=0.0, prefilter=True)
@@ -190,7 +189,7 @@ class Controler(object):
             pred = np.zeros_like(self.img, dtype=np.float)
 
             pred[bbox[0]:bbox[2], bbox[1]:bbox[3]] = fixed_predict
-            self.initial_seg = pred
+            self.initial_seg = np.array(pred)
 
             pred[pred >= 0.5] = 1
             pred[pred < 0.5] = 0
@@ -236,9 +235,11 @@ class Controler(object):
         model = UNet(2, 2, 16)
         if torch.cuda.is_available():
             model = model.cuda()
+            model.load_state_dict(torch.load(self.model_path))
         else:
             model = model.cpu()
-        model.load_state_dict(torch.load(self.model_path))
+            model.load_state_dict(torch.load(self.model_path, map_location="cpu"))
+
         return model
 
     def refined_seg(self):
@@ -259,7 +260,7 @@ class Controler(object):
         cropped_img = cropped_image(self.img, bbox)
 
         normal_img = itensity_standardization(cropped_img)
-        init_seg = [self.initial_seg, 1.0-self.initial_seg]
+        init_seg = [self.initial_seg, 1.0 - self.initial_seg]
         fg_prob = init_seg[0]
         bg_prob = init_seg[1]
 
@@ -290,9 +291,9 @@ class Controler(object):
         prob_feature[0] = fore_prob
         prob_feature[1] = back_prob
         softmax_feture = np.exp(prob_feature) / \
-            np.sum(np.exp(prob_feature), axis=0)
+                         np.sum(np.exp(prob_feature), axis=0)
         softmax_feture = np.exp(softmax_feture) / \
-            np.sum(np.exp(softmax_feture), axis=0)
+                         np.sum(np.exp(softmax_feture), axis=0)
         fg_prob = softmax_feture[0].astype(np.float32)
         bg_prob = softmax_feture[1].astype(np.float32)
 
